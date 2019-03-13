@@ -1,0 +1,123 @@
+{
+  "countries" : [{
+	  "name" : "Ireland",
+	  "bordering": [],
+	  "cities" : [{
+		  "name" : "Dublin",
+		  "population": 527612
+	  },{
+		  "name" : "Galway",
+		  "population": 79934
+	  }]
+  },{
+	  "name" : "England",
+	  "bordering": [],
+	  "cities" : [{
+		  "name" : "London",
+		  "population": 8136000
+	  },{
+		  "name" : "Birmingham",
+		  "population": 1086000
+	  }]
+  },{
+	  "name" : "France",
+	  "bordering": ["Germany", "Spain", "Italy"],
+	  "cities" : [{
+		  "name" : "Paris",
+		  "population": 2200000
+	  },{
+		  "name" : "Lyon",
+		  "population": 500715
+	  }]
+  },{
+	  "name" : "Spain",
+	  "bordering": ["France"],
+	  "cities" : [{
+		  "name" : "Madrid",
+		  "population": 3160000
+	  },{
+		  "name" : "Almeria",
+		  "population": 194515
+	  }]
+  },{
+	  "name" : "Germany",
+	  "bordering": ["France", "Poland"],
+	  "cities" : [{
+		  "name" : "Berlin",
+		  "population": 3575000
+	  },{
+		  "name" : "Munich",
+		  "population": 1450000
+	  }]
+  },{
+	  "name" : "China",
+	  "bordering": [],
+	  "cities" : [{
+		  "name" : "Beijing",
+		  "population": 21540000
+	  },{
+		  "name" : "Shanghai",
+		  "population": 26320000
+	  }]
+  },{
+	  "name" : "United States",
+	  "bordering": ["Mexico", "Canada"],
+	  "cities" : [{
+		  "name" : "Washington D.C.",
+		  "population": 693972
+	  },{
+		  "name" : "Boston",
+		  "population": 685094
+	  }]
+  },{
+	  "name" : "Mexico",
+	  "bordering": ["United States"],
+	  "cities" : [{
+		  "name" : "Mexico City",
+		  "population": 8851000
+	  },{
+		  "name" : "Tijuana",
+		  "population": 1301000
+	  }]
+  },{
+	  "name" : "Canada",
+	  "bordering": ["United States"],
+	  "cities" : [{
+		  "name" : "Ottawa",
+		  "population": 934240
+	  },{
+		  "name" : "Vancouver",
+		  "population": 631490
+	  }]
+  },{
+	  "name" : "Poland",
+	  "bordering": ["Germany"],
+	  "cities" : [{
+		  "name" : "Warsaw",
+		  "population": 1745000
+	  },{
+		  "name" : "Krakow",
+		  "population": 765320
+	  }]
+  },{
+	  "name" : "Italy",
+	  "bordering": ["France"],
+	  "cities" : [{
+		  "name" : "Rome",
+		  "population": 2873000
+	  },{
+		  "name" : "Florence",
+		  "population": 382258
+	  }]
+  },{
+	  "name" : "Brazil",
+	  "bordering": [],
+	  "cities" : [{
+		  "name" : "Brasilia",
+		  "population": 3039444
+	  },{
+		  "name" : "Sao Paulo",
+		  "population": 12106920
+	  }]
+  }]
+}
