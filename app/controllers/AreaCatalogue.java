@@ -6,6 +6,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import models.Area;
+import models.City;
+import models.Country;
+
 public class AreaCatalogue {
 
 	//don't want others to be able to make a new AreaCatalogue
@@ -19,8 +23,8 @@ public class AreaCatalogue {
     }
 
     private ArrayList<Country> countries = new ArrayList<Country>();
-    public static HashMap<Integer, Area> areaIDs = new HashMap<Integer, Area>();
-    public static HashMap<String, Area> areaNames = new HashMap<String, Area>();
+//    public static HashMap<Long, Area> areaIDs = new HashMap<Long, Area>();
+//    public static HashMap<String, Area> areaNames = new HashMap<String, Area>();
     public static HashMap<City, Country> CountryOf = new HashMap<City, Country>();
     
     public void addCountry(Country country) {
@@ -31,13 +35,13 @@ public class AreaCatalogue {
     	return countries;
     }
     
-    public static Area getAreaByID(Integer areaID) {
-    	return areaIDs.get(areaID);
-    }
-    
-    public static Area getAreaByName(String areaName) {
-    	return areaNames.get(areaName);
-    }
+//    public static Area getAreaByID(Long areaID) {
+//    	return areaIDs.get(areaID);
+//    }
+//    
+//    public static Area getAreaByName(String areaName) {
+//    	return areaNames.get(areaName);
+//    }
     
 	public static void main(String[] args) {
     	AreaCatalogue cat = AreaCatalogue.getInstance();
@@ -62,7 +66,8 @@ public class AreaCatalogue {
 
 			borderingArray = JSONcountry.getJSONArray("bordering");
 			for(int k = 0; k < borderingArray.length(); k++) {
-				neighbour = (Country) AreaCatalogue.getAreaByName(borderingArray.getString(k));
+//				neighbour = (Country) AreaCatalogue.getAreaByName(borderingArray.getString(k));
+				neighbour = (Country)Country.find("byName", borderingArray.getString(k)).first();
 				if (neighbour!=null)
 					country.addBordering(neighbour);
 			}
@@ -84,8 +89,9 @@ public class AreaCatalogue {
     	
     	//2. For every country, list the bordering countries, and answer the question whether 2 countries are bordering or not
     	System.out.println("2. Bordering countries");
-    	ArrayList<Country> neighbours;
-    	Country testNeighbour = (Country) getAreaByName("France");
+    	List<Country> neighbours;
+//    	(Country) getAreaByName("France");
+    	Country testNeighbour = (Country) Country.find("byName", "France").first();
     	for (Country c: ctrs) {
         	neighbours = c.listBordering();
         	if (neighbours.size() == 0) {
@@ -102,9 +108,11 @@ public class AreaCatalogue {
     	
     	//3. Retrieve the population of a city or country
     	System.out.println("3. Population getter");    	
-    	City testCity = (City) getAreaByName("Madrid");
+//    	(City) getAreaByName("Madrid");
+    	City testCity = (City) City.find("byName", "Madrid").first();
     	System.out.println(String.format("The population of %s is %d.", testCity.getName(), testCity.getPopulation()));
-    	Country testCountry = (Country) getAreaByName("United States");
+//    	(Country) getAreaByName("United States");
+ 		Country testCountry = (Country)Country.find("byName", "United States").first();
     	System.out.println(String.format("The population of %s is %d.\n", testCountry.getName(), testCountry.getPopulation()));
     	
     	//4. List all the cities in a country, or retrieve only the capital
@@ -118,9 +126,11 @@ public class AreaCatalogue {
     	System.out.println("5. Travel plan");
     	Scanner input = new Scanner(System.in);
     	System.out.print("Enter the name of city 1: ");
-    	City city1 = (City) getAreaByName(input.nextLine());
+//    	(City) getAreaByName(input.nextLine());
+    	City city1 = (City)City.find("byName", input.nextLine()).first();
     	System.out.print("Enter the name of city 2: ");
-    	City city2 = (City) getAreaByName(input.nextLine());
+//    	(City) getAreaByName(input.nextLine());
+    	City city2 = (City)City.find("byName", input.nextLine()).first();
     	input.close();
 
     	JourneyPlanner jp = new JourneyPlanner(city1, city2);

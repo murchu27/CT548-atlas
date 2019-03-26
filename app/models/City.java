@@ -1,6 +1,11 @@
-package controllers;
+package models;
 import java.util.*;
+import javax.persistence.*;
+import play.db.jpa.*;
 
+import controllers.AreaCatalogue;
+
+@Entity
 public class City extends Area {
 
     public City(String name, Integer population) {
@@ -9,8 +14,8 @@ public class City extends Area {
     	points_of_interest = new ArrayList<String>();
     }
 
-    private Integer population;
-    private ArrayList<String> points_of_interest;
+    public Integer population;
+    public ArrayList<String> points_of_interest;
 
     public Integer getPopulation() {
         return population;
@@ -34,12 +39,12 @@ public class City extends Area {
     	
     	City other = (City) obj;
     	if (other.getName() != this.getName()) return false; 
-    	if (other.getID() != this.getID()) return false; 
+    	if (other.getId() != this.getId()) return false; 
     	if (other.getPopulation() == this.getPopulation()) return false; 
     	return (other.listPOIs() == this.listPOIs());
     }
     
     public int hashCode() {
-    	return Arrays.hashCode(new Object[] {name, id, population, points_of_interest});
+    	return Arrays.hashCode(new Object[] {name, this.getId(), population, points_of_interest});
     }
 }

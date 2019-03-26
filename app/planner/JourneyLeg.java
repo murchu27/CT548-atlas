@@ -1,4 +1,5 @@
-package controllers;
+package planner;
+import models.City;
 
 //simply holds the information to be printed, no logic implemented
 public class JourneyLeg {

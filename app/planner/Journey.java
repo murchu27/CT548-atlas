@@ -1,15 +1,17 @@
-package controllers;
+package planner;
 
+import models.City;
 import java.util.*;
+
 public class Journey {
 
     public Journey(City city1, City city2) {
     	this.city1 = city1;
-    	this.city2 = city2;
+//    	this.city2 = city2;
     	legs = new ArrayList<JourneyLeg>();
     }
 
-    private City city1, city2;
+    private City city1/*, city2*/;
     private ArrayList<JourneyLeg> legs;
 
     public void addLeg(City otherCity, Integer transportType) {

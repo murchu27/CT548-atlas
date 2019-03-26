@@ -3,6 +3,10 @@ package controllers;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import models.City;
+import models.Country;
+import planner.Journey;
+
 public class JourneyPlanner {
 
     public JourneyPlanner(City city1, City city2) {
