@@ -3,6 +3,7 @@
 
 <div>
 #{form @uploadJSON(), enctype:'multipart/form-data'}
+<!-- @helper.form(action = routes.Application.uploadFile, 'enctype -> "multipart/form-data") { -->
     <h2>Upload a JSON data file:</h2>
     <p>
         Select this checkbox to clear the database as well: <input type="checkbox" id="clearData" name="clearData"  checked/>
@@ -10,6 +11,7 @@
     <input type="file" id="jsonData" name="jsonData" />
     <input type="submit" value="Upload" />
 #{/}
+<!-- } -->
 </div>
 
 #{if flash.success}
