@@ -1,0 +1,62 @@
+#{extends 'main.html' /}
+#{set title:'Country details' /}
+
+<div>
+    <h2>${country.getName()}</h2>
+    <p>Capital: <strong>${country.getCapital().getName()}</strong></p>
+    <p>Population: <strong>${country.getPopulation()}</strong></p>
+</div>
+
+<div>
+    <h2>Cities</h2>
+    #{if cities}
+        <div >    
+            There are <strong>${cities.size()}</strong> cities in ${country.getName()}.
+
+            <table style="width:100%">
+                <tr>
+                    <th>Name</th>
+                    <th>Population</th>
+                </tr>
+                #{list items:cities, as:'city'}
+                <tr>
+                    <td>${city.getName()}</td>
+                    <td>${city.getPopulation()}</td>
+                </tr>
+                #{/list}
+            </table>
+        </div>
+    #{/if}
+    #{else}
+        <div>
+            Unfortunately, there are no cities in ${country.getName()}.
+        </div>
+    #{/else}
+</div>
+
+<div>
+    <h2>Bordering Countries</h2>
+    #{if bordering}
+        <div >    
+            There are <strong>${bordering.size()}</strong> countries that border ${country.getName()}.
+
+            <table style="width:100%">
+                <tr>
+                    <th>Name</th>
+                    <th>Population</th>
+                </tr>
+                #{list items:bordering, as:'border'}
+                <tr>
+                    <td><a href="/show">${border.getName()}</a></td>
+                    <td>${border.getPopulation()}</td>
+                </tr>
+                #{/list}
+            </table>
+        </div>
+    #{/if}
+    #{else}
+        <div>
+            Unfortunately, there are no countries which border ${country.getName()}.
+        </div>
+    #{/else}
+</div>

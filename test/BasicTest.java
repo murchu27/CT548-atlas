@@ -30,15 +30,40 @@ public class BasicTest extends UnitTest {
     	String cityName = "Dublin";
     	Integer cityPopulation = 20;
     	String countryName = "Ireland";
+    	String borderName = "England";
     	
     	City ci = new City(cityName, cityPopulation).save();
-    	Country co = new Country(countryName);	
-    	co.addCity(ci);
-    	co.save();
+    	Country co1 = new Country(countryName, ci);	
+    	co1.setCapital(ci);
+    	co1.save();
+    	
+    	Country co2 = new Country(borderName);
+//    	co2.save();
     	
     	Country country = Country.find("byName", countryName).first();
-
+//    	Country border = Country.find("byName", borderName).first();
+    	
     	assertNotNull(country);
-    	assertEquals(ci.getPopulation(), country.getPopulation());
+//    	assertNotNull(border);
+    	country.save();
+    	
+//    	country.addBordering(border);
+    	country.addBordering(co2);
+    	country.save();
+//    	border.save();
+//    	for (Country c : country.listBordering())
+//    		System.out.println(c.getName());
+//    	
+//    	System.out.println();
+//    	
+//    	for (Country c : border.listBordering())
+//    		System.out.println(c.getName());
+
+    	assertEquals(cityPopulation, country.getPopulation());
+    	assertEquals(cityName, country.getCapital().getName());
+//    	assertTrue(country.listBordering().contains(border));
+//    	assertTrue(border.listBordering().contains(country));
+    	assertTrue(country.listBordering().contains(co2));
+    	assertTrue(co2.listBordering().contains(country));
     }
 }

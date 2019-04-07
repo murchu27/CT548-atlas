@@ -4,7 +4,10 @@
 
 # Home page
 GET     /                                       Application.index
-GET		/JourneyPlanner							Application.JourneyPlanner
+GET		/show									Application.show
+GET		/loader									jsonLoader.loader
+GET		/uploadJson								jsonLoader.uploadJSON
+GET		/JourneyPlanner							planner.JourneyPlanner
 
 # Import CRUD routes
 *      	/admin                                  module:crud								

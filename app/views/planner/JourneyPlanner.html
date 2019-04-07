@@ -1,0 +1,56 @@
+#{extends 'main.html' /}
+#{set title:'JourneyPlanner.html' /}
+
+#{ifErrors}
+	<div>
+		<p style="color:green">All fields are required!</p>
+	</div>
+#{/ifErrors}
+	
+#{form @planner.planJourney()}
+
+#{if cities}
+<div>
+	<p>
+		<strong>Select a start city:</strong>
+		#{select 'startCityId', items:cities, valueProperty:'id', labelProperty:'name', id:'startCityId' /}
+	</p>
+</div>
+<div>
+	<p>
+		<strong>Select an end city:</strong>
+		#{select 'endCityId', items:cities, valueProperty:'id', labelProperty:'name', id:'endCityId' /}
+	</p>
+</div>
+#{/if}
+
+#{else}
+    <div>
+        Unfortunately, there are no cities in the database.
+    </div>
+#{/else}
+
+<div>
+	<input type="submit" value="Plan Journey" />
+</div>
+#{/form}
+
+#{if flash.success}
+<div>
+	<p style="color:green">${flash.success}</p>
+</div>
+#{/if}
+
+#{if flash.error}
+<div>
+	<p style="color:red">${flash.error}</p>
+</div>
+#{/if}
+
+#{if plan}
+<div>
+	#{list items:plan, as:'leg'}
+	<p>${leg}</p>
+	#{/list}
+</div>
+#{/if}

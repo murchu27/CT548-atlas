@@ -1,28 +1,23 @@
 package models;
+
 import javax.persistence.*;
 import play.db.jpa.*;
-
 import java.util.*;
 
-import controllers.AreaCatalogue;
-
 @Entity
-public class Country extends Area {
-
-	//Country maintains One-to-Many relationship with cities
-    @OneToMany
-    public List<City> cities;
+public class Country extends PopulatedArea {
     
 	//Country maintains Many-to-Many relationship with itself
-    @OneToMany
-    public List<Country> bordering;
+    @ManyToMany
+    public Set<Country> bordering;
     
-    public City capital;
+    //change default length so that it is long enough to hold the information of a city
+    @OneToOne
+    public City capital; 
     
     public Country(String name) {
     	super(name);
-    	cities = new ArrayList<City>();
-    	bordering = new ArrayList<Country>();
+    	bordering = new HashSet<Country>();
     }
     
     public Country(String name, City capital) {
@@ -30,23 +25,25 @@ public class Country extends Area {
     	setCapital(capital);
     }
     
+    @Override
     public Integer getPopulation() {
         Integer p = 0;
-        for (City c: cities)
-        	p += c.getPopulation();
+        for (Area a: getSubAreas())
+        	if (a instanceof PopulatedArea)
+        		p += ((PopulatedArea)a).getPopulation();
     	return p;
     }
 
-    public List<Country> listBordering() {
+    public Set<Country> listBordering() {
         return bordering;
     }
 
-    public void addBordering(Long countryID) {
-    	addBordering(Country.findById(countryID));
-    }
-    
     public void addBordering(String countryName) {
         addBordering((Country)Country.find("byName", countryName).first());
+    }
+    
+    public void addBordering(Long countryID) {
+    	addBordering(Country.findById(countryID));
     }
     
     public void addBordering(Country other) {
@@ -67,21 +64,13 @@ public class Country extends Area {
         return bordering.contains(other);
     }
     
-    public void addCity(City city) {
-    	cities.add(city);
-    	AreaCatalogue.CountryOf.put(city, this);
-    }
-
-    public List<City> listCities() {
-    	return cities;
-    }
-
     public City getCapital() {
         return capital;
     }
     
     public void setCapital(City capital) {
     	this.capital = capital;
-    	addCity(capital);
+    	if (!getSubAreas().contains(capital))
+    		addArea(capital);
     }
 }

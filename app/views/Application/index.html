@@ -1,4 +1,57 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
-#{welcome /}
+<div>
+    <h2>Countries</h2>
+    #{if countries}
+        <div >    
+            There are <strong>${countries.size()}</strong> countries in the database.
+
+            <table style="width:100%">
+                <tr>
+                    <th>Name</th>
+                    <th>Population</th> 
+                </tr>
+                #{list items:countries, as:'country'}
+                <tr>
+                    <td><a href=@{Application.show(country.getName())}>${country.getName()}</td>
+                    <td>${country.getPopulation()}</td> 
+                </tr>
+                #{/list}
+            </table>
+        </div>
+    #{/if}
+    #{else}
+        <div>
+            Unfortunately, there are no countries in the database.
+        </div>
+    #{/else}
+</div>
+
+
+<div>
+    <h2>Cities</h2>
+    #{if cities}
+        <div >    
+            There are <strong>${cities.size()}</strong> cities in the database.
+
+            <table style="width:100%">
+                <tr>
+                    <th>Name</th>
+                    <th>Population</th>
+                </tr>
+                #{list items:cities, as:'city'}
+                <tr>
+                    <td>${city.getName()}</a></td>
+                    <td>${city.getPopulation()}</td>
+                </tr>
+                #{/list}
+            </table>
+        </div>
+    #{/if}
+    #{else}
+        <div>
+            Unfortunately, there are no cities in the database.
+        </div>
+    #{/else}
+</div>
