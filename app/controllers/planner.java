@@ -6,13 +6,14 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
+import exceptions.SameCityException;
 import models.*;
 import planner.*;
 
 public class planner extends Controller {
 	
 	public static void JourneyPlanner(List<String> plan) {
-        List<City> cities = City.findAll();
+		List<City> cities = City.findAll();
 
 		render(cities, plan);
 	}
@@ -23,14 +24,19 @@ public class planner extends Controller {
 		
 		assertNotNull(city1);
 		assertNotNull(city2);
-		System.out.println("go " + city1.getName());
 		
-		assertNotNull(AreaCatalogue.getCountryOf(city1));
+		assertNotNull(city1.getCountry());
 		
 		JourneyPlanner jp = new JourneyPlanner(city1, city2);
-		jp.planJourneys();
-		List<String> plan = jp.reportPlan();
+		try {
+			jp.planJourneys();
+			List<String> plan = jp.reportPlan();
+			flash.success("Journey successfully calculated.");
+			JourneyPlanner(plan);
+		} catch (SameCityException e) {
+			flash.error("Cannot travel from a city to itself!");
+			JourneyPlanner(null);
+		}
 		
-		JourneyPlanner(plan);
 	}
 }

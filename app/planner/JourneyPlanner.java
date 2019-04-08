@@ -3,7 +3,7 @@ package planner;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import models.AreaCatalogue;
+import exceptions.SameCityException;
 import models.City;
 import models.Country;
 import planner.Journey;
@@ -19,16 +19,15 @@ public class JourneyPlanner {
     private City city1, city2;
     private ArrayList<Journey> journies;
 
-    public void planJourneys() {
+    public void planJourneys() throws SameCityException {
     	//before anything else, check if city1 == city2, in which case journey does not make sense
     	if (city1.equals(city2))
-    		return;
+    		throw new SameCityException();
     	
-    	AreaCatalogue cat = AreaCatalogue.getInstance();
     	Journey j  = new Journey();
     	
-    	Country country1 = cat.CountryOf.get(city1);
-    	Country country2 = cat.CountryOf.get(city2);
+    	Country country1 = city1.getCountry();
+    	Country country2 = city2.getCountry();
     	City cap1 = country1.getCapital();
     	City cap2 = country2.getCapital();
     	
@@ -55,8 +54,8 @@ public class JourneyPlanner {
 	    	}
 	    	//similar if only city2 is a capital
 	    	else if (city1.equals(cap1) && !city2.equals(cap2)) {
-	    		j.addLeg(new JourneyLeg(city1, cap2, new Bus()));//start with plane
-	    		j.addLeg(new JourneyLeg(cap2, city2, new Plane()));//then bus
+	    		j.addLeg(new JourneyLeg(city1, cap2, new Plane()));//start with plane
+	    		j.addLeg(new JourneyLeg(cap2, city2, new Bus()));//then bus
 	    	}
     		journies.add(j);
 

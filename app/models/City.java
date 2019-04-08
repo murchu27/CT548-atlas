@@ -1,4 +1,5 @@
 package models;
+
 import java.util.*;
 import javax.persistence.*;
 
@@ -24,6 +25,10 @@ public class City extends PopulatedArea {
     }
     
     public Country getCountry() {
-    	return AreaCatalogue.CountryOf.get(this);
+    	Area a = getSuperArea();
+    	if (a instanceof Country)
+    		return (Country)this.getSuperArea();
+    	else
+    		return null;
     }
 }

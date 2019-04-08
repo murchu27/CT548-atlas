@@ -5,3 +5,4 @@ require:
     - play -> docviewer
     - play -> crud
     - play -> secure
+    - org.json -> json 20180813

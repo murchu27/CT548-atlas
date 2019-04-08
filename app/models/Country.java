@@ -28,9 +28,11 @@ public class Country extends PopulatedArea {
     @Override
     public Integer getPopulation() {
         Integer p = 0;
-        for (Area a: getSubAreas())
-        	if (a instanceof PopulatedArea)
-        		p += ((PopulatedArea)a).getPopulation();
+        if (!(null==getSubAreas())){
+	        for (Area a: getSubAreas())
+	        	if (a instanceof PopulatedArea)
+	        		p += ((PopulatedArea)a).getPopulation();
+        }
     	return p;
     }
 
@@ -70,7 +72,7 @@ public class Country extends PopulatedArea {
     
     public void setCapital(City capital) {
     	this.capital = capital;
-    	if (!getSubAreas().contains(capital))
+    	if (!(null==getSubAreas()) && !(getSubAreas().contains(capital)))
     		addArea(capital);
     }
 }

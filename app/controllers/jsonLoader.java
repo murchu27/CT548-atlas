@@ -3,6 +3,7 @@ package controllers;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -23,12 +24,13 @@ public class jsonLoader extends Controller{
     	render();
     }
 	
-	public static void uploadJSON(File jsonData, boolean clearData) {
-    	try {
-			System.out.println(clearData);
+	public static void uploadJSON(String jsonData, boolean clearData) {
+    	InputStream input = null;
+		
+		try {
 			if (clearData) play.test.Fixtures.deleteDatabase();
 			
-			InputStream input = new FileInputStream(jsonData);
+			input = new FileInputStream(jsonData);
 			populateDatabase(input);
 
 			flash.success("File uploaded successfully and database updated");
@@ -41,6 +43,11 @@ public class jsonLoader extends Controller{
 		} catch (JSONException je) {
 			flash.error("JSON library exception raised while loading the file. ");
 			je.printStackTrace();
+		} finally {
+			try {
+				if (! (null == input)) input.close();
+			}catch (IOException ioe) {
+			}
 		}
     	loader();
     }
@@ -122,7 +129,6 @@ public class jsonLoader extends Controller{
 						if (neighbour!=null) {
 							neighbour.save();
 							country.addBordering(neighbour);
-//							System.out.println(country.listBordering().toString());
 							country.save();
 							neighbour.save();
 						}

@@ -1,5 +1,5 @@
 #{extends 'main.html' /}
-#{set title:'Country details' /}
+#{set title:'Country Details' /}
 
 <div>
     <h2>${country.getName()}</h2>
@@ -47,7 +47,7 @@
                 </tr>
                 #{list items:bordering, as:'border'}
                 <tr>
-                    <td><a href="/show">${border.getName()}</a></td>
+                    <td><a href=@{Application.show(border.getName())}>${border.getName()}</a></td>
                     <td>${border.getPopulation()}</td>
                 </tr>
                 #{/list}

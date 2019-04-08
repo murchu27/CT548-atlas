@@ -9,16 +9,24 @@ import play.db.jpa.*;
 public abstract class Area extends Model {
 
     public String name;
-    @OneToMany
-    public Set<Area> subareas;
-
+    @OneToMany(mappedBy="superArea", cascade = CascadeType.ALL)
+    public Set<Area> subAreas;
+    @ManyToOne
+    @JoinColumn(name="FK_SuperAreaId")
+    public Area superArea;
+    
 	public Area(String name) {
     	this.name = name;
-    	subareas = new HashSet<Area>();
+    	this.subAreas = new HashSet<Area>();
 	}
     
 	public void addArea(Area area) {
-		subareas.add(area);
+		subAreas.add(area);
+		area.setSuperArea(this);
+	}
+	
+	public void setSuperArea(Area area) {
+		superArea = area;
 	}
 	
     public String getName() {
@@ -26,6 +34,10 @@ public abstract class Area extends Model {
     }
     
     public Set<Area> getSubAreas() {
-    	return subareas;
+    	return subAreas;
+    }
+    
+    public Area getSuperArea() {
+    	return superArea;
     }
 }
